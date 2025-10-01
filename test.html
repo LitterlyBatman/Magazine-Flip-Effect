@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Magazine Flipbook</title>
+  <title>E-Magazine Flipbook with Cover</title>
   <style>
     body {
       display: flex;
@@ -16,9 +16,10 @@
     }
 
     .flip-book {
-      width: 450px;   /* kleinere breedte */
-      height: 640px;  /* hoogte in verhouding */
+      width: 400px;   /* breedte van een enkele pagina */
+      height: 570px;  /* hoogte van een enkele pagina */
       box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      margin: 0 auto;
     }
 
     .page img {
@@ -35,10 +36,16 @@
 </head>
 <body>
   <div class="flip-book" id="flipbook">
-    <div class="page"><img src="https://picsum.photos/1447/2048?random=1" alt="Page 1"></div>
-    <div class="page"><img src="https://picsum.photos/1447/2048?random=2" alt="Page 2"></div>
-    <div class="page"><img src="https://picsum.photos/1447/2048?random=3" alt="Page 3"></div>
-    <div class="page"><img src="https://picsum.photos/1447/2048?random=4" alt="Page 4"></div>
+    <!-- Cover page (enkel, gecentreerd) -->
+    <div class="page cover">
+      <img src="https://picsum.photos/1447/2048?random=200" alt="Cover Page">
+    </div>
+
+    <!-- Inside pages -->
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=201" alt="Page 2"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=202" alt="Page 3"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=203" alt="Page 4"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=204" alt="Page 5"></div>
   </div>
 
   <div class="controls">
@@ -53,14 +60,17 @@
       const flip = new St.PageFlip(
         document.getElementById("flipbook"),
         {
-          width: 450,   // kleinere breedte
-          height: 640,  // kleinere hoogte
+          width: 400,
+          height: 570,
           size: "fixed",
-          showCover: true,
+          showCover: true,  // deze optie zorgt dat de eerste .page als cover wordt gezien
+          drawShadow: false,
+          autoSize: true,
           maxShadowOpacity: 0.3,
         }
       );
 
+      // laad pagina’s, de eerste met class "cover" wordt de cover
       flip.loadFromHTML(document.querySelectorAll(".page"));
 
       document.getElementById("prev").addEventListener("click", () => flip.flipPrev());
