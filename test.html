@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Magazine Flipbook with Cover</title>
+  <title>Magazine Flipbook</title>
   <style>
     body {
       display: flex;
@@ -14,46 +14,53 @@
       margin: 0;
       background: #f2f2f2;
     }
-
     .flip-book {
-      width: 400px;   /* breedte van een enkele pagina */
-      height: 570px;  /* hoogte van een enkele pagina */
+      width: 400px;
+      height: 570px;
       box-shadow: 0 0 20px rgba(0,0,0,0.4);
       margin: 0 auto;
     }
-
     .page img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-
     .controls {
       margin-top: 20px;
+      display: flex;
+      gap: 10px;
     }
   </style>
 </head>
 <body>
   <div class="flip-book" id="flipbook">
-    <!-- Cover page (enkel, gecentreerd) -->
-    <div class="page cover">
-      <img src="https://picsum.photos/1447/2048?random=200" alt="Cover Page">
-    </div>
+    <!-- Binnenpagina’s -->
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=101" alt="Page 1"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=102" alt="Page 2"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=103" alt="Page 3"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=104" alt="Page 4"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=105" alt="Page 5"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=106" alt="Page 6"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=107" alt="Page 7"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=108" alt="Page 8"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=109" alt="Page 9"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=110" alt="Page 11"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=110" alt="Page 12"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=110" alt="Page 13"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=110" alt="Page 14"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=110" alt="Page 15"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=110" alt="Page 16"></div>
+    <div class="page"><img src="https://picsum.photos/1447/2048?random=110" alt="Page 17"></div>
 
-    <!-- Inside pages -->
-    <div class="page"><img src="https://picsum.photos/1447/2048?random=201" alt="Page 2"></div>
-    <div class="page"><img src="https://picsum.photos/1447/2048?random=202" alt="Page 3"></div>
-    <div class="page"><img src="https://picsum.photos/1447/2048?random=203" alt="Page 4"></div>
-    <div class="page"><img src="https://picsum.photos/1447/2048?random=204" alt="Page 5"></div>
   </div>
 
   <div class="controls">
     <button id="prev">Previous</button>
     <button id="next">Next</button>
+    <a href="coverpage.html"><button>Back to Cover</button></a>
   </div>
 
-  <!-- Flipbook Library -->
   <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -63,18 +70,24 @@
           width: 400,
           height: 570,
           size: "fixed",
-          showCover: true,  // deze optie zorgt dat de eerste .page als cover wordt gezien
-          drawShadow: false,
+          showCover: false,
+          drawShadow: true,
           autoSize: true,
           maxShadowOpacity: 0.3,
         }
       );
 
-      // laad pagina’s, de eerste met class "cover" wordt de cover
       flip.loadFromHTML(document.querySelectorAll(".page"));
 
       document.getElementById("prev").addEventListener("click", () => flip.flipPrev());
       document.getElementById("next").addEventListener("click", () => flip.flipNext());
+
+      // Optional auto-redirect to back.html on last page
+      flip.on("flip", (e) => {
+        if (e.data === flip.getPageCount() - 1) {
+          window.location.href = "back.html";
+        }
+      });
     });
   </script>
 </body>
